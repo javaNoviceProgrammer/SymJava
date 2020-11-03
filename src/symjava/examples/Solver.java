@@ -29,7 +29,7 @@ public class Solver {
 		//for(int i=0; i<_b.length; i++)
 		//	System.out.println(_b[i]+" ");
 		//System.out.println();
-		
+
 		Matrix A = new DenseMatrix(_A);
 		Vector b = new DenseVector(_b);
 		DenseVector x = new DenseVector(_x);
@@ -43,7 +43,7 @@ public class Solver {
 		ATA.add(I);
 		Vector ATb = new DenseVector(AT.numRows());
 		ATb = AT.mult(b, ATb);
-		
+
 		CG sol = new CG(ATb);
 		try {
 			long begin = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Solver {
 		System.arraycopy(x.getData(), 0, _x, 0, _x.length);
 		return _x;
 	}
-	
+
 	public static void main(String[] args) {
 		double[][] A = {
 				{ 2, 1,  3},
@@ -70,7 +70,7 @@ public class Solver {
 		for(double i : x)
 			System.out.println(i);
 		//x=(0.3,0.4,0)
-		
+
 		int N = Integer.valueOf(args[0]);
 		long begin = System.currentTimeMillis();
 		double[][] AA = new double[N][N];

@@ -1,4 +1,4 @@
-package symjava.examples;
+/*package symjava.examples;
 
 import libsvm.svm;
 import libsvm.svm_model;
@@ -28,7 +28,7 @@ public class TestLibsvm {
 		if(features[0]!=v) {
 			System.out.print("Actual >>>" + features[0] + " " + v + "<<< Prediction");
 
-			
+
 		for (int i = 0; i < totalClasses; i++) {
 			System.out.print("(" + labels[i] + ":" + prob_estimates[i] + ")");
 		}
@@ -104,3 +104,4 @@ public class TestLibsvm {
 	}
 
 }
+*/
