@@ -1,4 +1,4 @@
-package lambdacloud.examples;
+/*package lambdacloud.examples;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -25,7 +25,7 @@ import symjava.relational.Le;
 import symjava.symbolic.Expr;
 
 public class ExampleFEM {
-	
+
 	public static class MyFrame extends JFrame {
 		private static final long serialVersionUID = 1L;
 		public MyFrame() {
@@ -39,7 +39,7 @@ public class ExampleFEM {
 			setSize(550, 550);
 			setLocationRelativeTo(null);
 		}
-		
+
 		public static class MyPanel extends JPanel {
 			private static final long serialVersionUID = 1L;
 			double[] data;
@@ -60,24 +60,24 @@ public class ExampleFEM {
 					g2d.drawLine(0, x1, w, x1);
 				}
 			}
-	
+
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				doDrawing(g);
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		FEMImp1(args);
-		
+
 //		MyFrame frame = new MyFrame();
 //		frame.setVisible(true);
 	}
-	
+
 	public static void FEMImp1(String[] args) {
 		System.out.println("Current working dir="+System.getProperty("user.dir"));
-		
+
 		String configFile = "job_google.conf";
 		int nData = 1000;
 		int nEle = 100000;
@@ -94,17 +94,17 @@ public class ExampleFEM {
 				isAsync = Boolean.valueOf(args[3]);
 			}
 		}
-		
+
 		CloudConfig config = CloudConfig.setGlobalConfig(configFile);
-		
+
 		double[] data = new double[nData];
 		for(int i=0; i<data.length; i++)
 			data[i] = i;
 		data[0] = nEle;
-		
+
 		CloudSD input = new CloudSD("input").init(data);
 		CloudSD output = new CloudSD("output").resize(1);
-		
+
 		long start, end, totalTime;
 		long start2, end2, applyTime;
 		start = System.currentTimeMillis();
@@ -113,7 +113,7 @@ public class ExampleFEM {
 			config.setCurrentClient(config.getClientByIndex(i));
 			CloudFunc f = new CloudFunc(BytecodeFuncImpFEM.class);
 			//f.useCloudConfig(config); //No need to set config. We use global configuration here
-			
+
 			f.isAsyncApply(isAsync);
 			f.apply(output, input);
 		}
@@ -132,3 +132,4 @@ public class ExampleFEM {
 		System.out.println("apply time="+applyTime+" getDataTime="+(totalTime-applyTime)+" totalTime="+totalTime);
 	}
 }
+*/

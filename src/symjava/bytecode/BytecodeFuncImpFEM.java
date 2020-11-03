@@ -1,4 +1,4 @@
-package symjava.bytecode;
+/*package symjava.bytecode;
 
 import static edu.uta.futureye.function.FMath.grad;
 import static edu.uta.futureye.function.FMath.pow;
@@ -49,7 +49,7 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 				0.47014206,
 				0.33333333
 			};
-		
+
 		public static void check(String info, double d1, double d2) {
 			if(Math.abs(d1-d2) < eps) {
 				System.out.println("pass");
@@ -65,31 +65,31 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 				params[paramPos+2] = 0.333333333333333;
 				rlt = 0.5*integrand.apply(params);
 			} else if(order == 3) {
-				params[paramPos] = 0.5; params[paramPos+1] = 0.5; params[paramPos+2] = 0.0; 
+				params[paramPos] = 0.5; params[paramPos+1] = 0.5; params[paramPos+2] = 0.0;
 				double pv1 = integrand.apply(params);
-				params[paramPos] = 0.0; params[paramPos+1] = 0.5; params[paramPos+2] = 0.5; 
+				params[paramPos] = 0.0; params[paramPos+1] = 0.5; params[paramPos+2] = 0.5;
 				double pv2 = integrand.apply(params);
-				params[paramPos] = 0.5; params[paramPos+1] = 0.0; params[paramPos+2] = 0.5; 
+				params[paramPos] = 0.5; params[paramPos+1] = 0.0; params[paramPos+2] = 0.5;
 				double pv3 = integrand.apply(params);
 				rlt = 0.5*0.333333333333333*(pv1 + pv2 + pv3);
 			} else if(order == 4) {
 				double w123 = 25.0/48.0;
 				double w4 = -27.0/48.0;
-				
-				params[paramPos] = 0.6; params[paramPos+1] = 0.2; params[paramPos+2] = 0.2; 
+
+				params[paramPos] = 0.6; params[paramPos+1] = 0.2; params[paramPos+2] = 0.2;
 				double pv1 = integrand.apply(params);
-				params[paramPos] = 0.2; params[paramPos+1] = 0.6; params[paramPos+2] = 0.2; 
+				params[paramPos] = 0.2; params[paramPos+1] = 0.6; params[paramPos+2] = 0.2;
 				double pv2 = integrand.apply(params);
-				params[paramPos] = 0.2; params[paramPos+1] = 0.2; params[paramPos+2] = 0.6; 
+				params[paramPos] = 0.2; params[paramPos+1] = 0.2; params[paramPos+2] = 0.6;
 				double pv3 = integrand.apply(params);
-				params[paramPos] = 0.333333333333333; params[paramPos+1] = 0.333333333333333; params[paramPos+2] = 0.333333333333333; 
+				params[paramPos] = 0.333333333333333; params[paramPos+1] = 0.333333333333333; params[paramPos+2] = 0.333333333333333;
 				double pv4 = 0.5*integrand.apply(params);
-				
+
 				rlt = 0.5*w123*(pv1 + pv2 + pv3) + w4*pv4;
 			} else if(order == 5) {
 				for(int i=0;i<7;i++) {
-					params[paramPos]   = triR[i]; 
-					params[paramPos+1] = triS[i]; 
+					params[paramPos]   = triR[i];
+					params[paramPos+1] = triS[i];
 					params[paramPos+2] = 1.0-triR[i]-triS[i];
 					rlt += triW[i]*integrand.apply(params);
 				}
@@ -100,11 +100,11 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 		public static void solveLaplace(double[] nodesData) {
 			int nEle = (int)nodesData[0];
 			NodeList nodes = new NodeList();
-			/**
+			*//**
 			 * |\
 			 * | \
 			 * ----
-			 */
+			 *//*
 			nodes.add(new Node(1, 1.0,1.0));
 			nodes.add(new Node(2, 2.0,1.0));
 			nodes.add(new Node(3, 1.0,2.0));
@@ -114,7 +114,7 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 			MathFunc jac = e.getJacobin();
 			System.out.println(jac.compile().apply());
 			System.out.println(jac.apply());
-			
+
 			SFLinearLocal2DRS[] sf = new SFLinearLocal2DRS[3];
 			sf[0] = new SFLinearLocal2DRS(1);
 			sf[1] = new SFLinearLocal2DRS(2);
@@ -132,17 +132,17 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 			FX y3 = new FX("y3");
 			MathFunc fx = x1*r + x2*s + x3*t;
 			MathFunc fy = y1*r + y2*s + y3*t;
-			
+
 //			MathFunc ff = fx*fy;
-//			MathFunc f = sin(PI*x)*sin(PI*y)*pow(E, -0.2); 
+//			MathFunc f = sin(PI*x)*sin(PI*y)*pow(E, -0.2);
 			MathFunc f = 4*pow(x,4)*pow(y,4);
 //			MathFunc f = 4*(x*x*x*x + y*y*y*y);
-			
+
 			Map<String, MathFunc> map = new HashMap<String, MathFunc>();
 			map.put("x", fx);
 			map.put("y", fy);
 			MathFunc ff = f.compose(map);
-			
+
 			MathFunc[][] lhs = new MathFunc[3][3];
 			MathFunc[] rhs = new MathFunc[3];
 			for(int j=0; j<3; j++) {
@@ -155,7 +155,7 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 				rhs[j] = v*ff*jac;
 				rhs[j].setName("RHS"+j);
 			}
-			
+
 			CompiledFunc[][] clhs = new CompiledFunc[3][3];
 			CompiledFunc[] crhs = new CompiledFunc[3];
 			for(int j=0; j<3; j++) {
@@ -164,7 +164,7 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 				}
 				crhs[j] = rhs[j].compile(argsOrder);
 			}
-			
+
 			double[][] A = new double[3][3];
 			double[] b = new double[3];
 			double[] params = new double[9];
@@ -181,7 +181,7 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 				}
 			}
 			System.out.println(System.currentTimeMillis()-start);
-			
+
 			for(int j=0; j<3; j++) {
 				for(int i=0; i<3; i++) {
 					System.out.print(A[j][i]+" ");
@@ -191,31 +191,32 @@ public class BytecodeFuncImpFEM implements BytecodeFunc {
 			for(int j=0; j<3; j++) {
 				System.out.println(b[j]);
 			}
-			/*
-			 * 
-			 * 1.4999999999999984 0.0 -1.4999999999999984 
-				0.0 0.9999999999999989 -0.9999999999999989 
-				-1.4999999999999984 -0.9999999999999989 2.4999999999999973 
+
+			 *
+			 * 1.4999999999999984 0.0 -1.4999999999999984
+				0.0 0.9999999999999989 -0.9999999999999989
+				-1.4999999999999984 -0.9999999999999989 2.4999999999999973
 				0.8749999999999991
 				0.8749999999999991
 				-1.7499999999999982
 				Correct: (add setArgIdx() in FComposite)
-				1.0833333333333321 -0.45833333333333287 -0.45833333333333287 
-				-0.45833333333333287 0.5833333333333327 0.04166666666666662 
-				-0.45833333333333287 0.04166666666666662 0.5833333333333327 
+				1.0833333333333321 -0.45833333333333287 -0.45833333333333287
+				-0.45833333333333287 0.5833333333333327 0.04166666666666662
+				-0.45833333333333287 0.04166666666666662 0.5833333333333327
 				0.24999999999999972
 				0.31249999999999967
 				0.31249999999999967
-			 */
+
 		}
 
 		public static void main(String[] args) {
 			solveLaplace(new double[]{100});
 		}
-		
+
 		@Override
 		public double apply(double... args) {
 			solveLaplace(args);
 			return args[0];
-		}	
+		}
 }
+*/

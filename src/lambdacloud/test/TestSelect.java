@@ -1,4 +1,4 @@
-package lambdacloud.test;
+/*package lambdacloud.test;
 
 import symjava.bytecode.BytecodeBatchFunc;
 import symjava.bytecode.BytecodeVecFunc;
@@ -14,13 +14,14 @@ public class TestSelect {
 		Table t = new Table(x, y);
 		//BytecodeBatchFunc f = JIT.compileBatchFunc(new Expr[]{x,y}, t.args());
 		//JIT.compileBatchVecFunc()???
-		/**
+		*//**
 		 * For each column in select clause do the evaluation
-		 */
+		 *//*
 		BytecodeVecFunc f2 = JIT.compileVecFunc(new Expr[]{x,y}, t.args());
 		f.apply(outAry, 0, args);
 	}
-	
+
 
 
 }
+*/
